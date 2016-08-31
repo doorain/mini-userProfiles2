@@ -1,10 +1,12 @@
 angular.module('userProfiles').controller('MainController', function($scope, mainService) {
+ $scope.pageNum = 1;
+    $scope.getUsers = function() {
 
-  $scope.getUsers = function() {
-  	$scope.users = mainService.getUsers();
-  }
-
-
-  $scope.getUsers();
-
-});
+      mainService.getUsers($scope.pageNum);
+      var promise = mainService.getUsers;
+      promise.then(function(response) {
+        $scope.users = response.data.data;
+      });
+    }
+    $scope.getUsers();
+  });
